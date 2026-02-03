@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Play FakeScape - RuneScape by Jagex Ltd</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
+    <style>
+      .game-container {
+        width: 765px;
+        height: 503px;
+        margin: 20px auto;
+        background: #000;
+        border: 3px solid #5a4a3a;
+        position: relative;
+      }
+      .game-container canvas {
+        display: block;
+      }
+      .game-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #ffcc00;
+        font-family: sans-serif;
+        text-align: center;
+      }
+      .download-section {
+        text-align: center;
+        margin-top: 15px;
+      }
+      .download-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: linear-gradient(to bottom, #5a4a3a, #3a2a1a);
+        color: #ffcc00;
+        text-decoration: none;
+        border: 2px solid #6a5a4a;
+        font-weight: bold;
+      }
+      .download-btn:hover {
+        background: linear-gradient(to bottom, #6a5a4a, #4a3a2a);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rsc-container">
+      <div class="rsc-border-top rsc-border-bar"></div>
+      <div class="rsc-wrap">
+        <header class="rsc-box rsc-header">
+          <h1>Play FakeScape</h1>
+          <a class="rsc-link" href="/index.html">Main menu</a>
+        </header>
+        <section>
+          <div id="game-container" class="game-container">
+            <div class="game-loading" id="loading-text">
+              Loading CheerpJ...<br>
+              <small>This may take a moment on first load</small>
+            </div>
+          </div>
+          <div class="download-section">
+            <a class="download-btn" href="/dwn/FakeScape.jar" download>
+              Download Desktop Version (JAR)
+            </a>
+          </div>
+        </section>
+        <div class="rsc-scroll">
+          <p>
+            <strong>Web Version:</strong> Plays directly in your browser using CheerpJ.<br>
+            <strong>Desktop Version:</strong> Requires Java installed on your computer.
+          </p>
+        </div>
+      </div>
+      <footer class="rsc-footer">
+        This webpage and its contents is copyright 2003 Jagex Ltd
+        <br>
+        To use our service you must agree to our 
+        <a class="rsc-link" href="/terms.html">Terms+Conditions</a> + 
+        <a class="rsc-link" href="/privacy.html">Privacy policy</a>
+      </footer>
+      <div class="rsc-border-bottom rsc-border-bar"></div>
+    </div>
+    <script>
+      (async function() {
+        await cheerpjInit();
+        const container = document.getElementById('game-container');
+        document.getElementById('loading-text').textContent = 'Starting game...';
+        cheerpjCreateDisplay(765, 503, container);
+        await cheerpjRunJar("/app/dwn/FakeScape.jar");
+      })();
+    </script>
+  </body>
+</html>

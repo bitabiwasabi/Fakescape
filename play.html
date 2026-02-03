@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Play FakeScape - RuneScape by Jagex Ltd</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
-    <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
+    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
     <style>
       .game-container {
         width: 765px;
@@ -84,11 +84,17 @@
     </div>
     <script>
       (async function() {
-        await cheerpjInit();
-        const container = document.getElementById('game-container');
-        document.getElementById('loading-text').textContent = 'Starting game...';
-        cheerpjCreateDisplay(765, 503, container);
-        await cheerpjRunJar("/app/dwn/FakeScape.jar");
+        try {
+          await cheerpjInit({ version: 11, clipboardMode: "permission" });
+          const container = document.getElementById('game-container');
+          document.getElementById('loading-text').textContent = 'Starting game...';
+          cheerpjCreateDisplay(-1, -1, container);
+          await cheerpjRunJar("/app/dwn/FakeScape.jar");
+        } catch (e) {
+          document.getElementById('loading-text').innerHTML = 
+            'Failed to load game.<br><small>Try the desktop download below.</small>';
+          console.error('CheerpJ error:', e);
+        }
       })();
     </script>
   </body>

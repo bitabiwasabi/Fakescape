@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Play FakeScape - RuneScape by Jagex Ltd</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
-    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
     <style>
       .game-container {
         width: 765px;
@@ -15,17 +14,13 @@
         border: 3px solid #5a4a3a;
         position: relative;
       }
-      .game-container canvas {
-        display: block;
-      }
-      .game-loading {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #ffcc00;
-        font-family: sans-serif;
+      .game-warning {
+        padding: 15px;
+        background: #ffffcc;
+        border: 1px solid #ffcc00;
+        color: #333;
         text-align: center;
+        margin: 10px;
       }
       .download-section {
         text-align: center;
@@ -54,22 +49,39 @@
           <a class="rsc-link" href="/index.html">Main menu</a>
         </header>
         <section>
-          <div id="game-container" class="game-container">
-            <div class="game-loading" id="loading-text">
-              Loading CheerpJ...<br>
-              <small>This may take a moment on first load</small>
-            </div>
+          <div class="game-warning">
+            <strong>Note:</strong> This game requires Java to be installed and enabled in your browser.
+            Most modern browsers have disabled Java applet support for security reasons.
+            For best experience, use an older browser like Internet Explorer or Firefox ESR 52.
+          </div>
+          <div class="game-container">
+            <applet 
+              code="net.runelite.client.RuneLite.class" 
+              archive="/dwn/FakeScape.jar"
+              width="765" 
+              height="503"
+              id="game-applet">
+              <param name="permissions" value="all-permissions">
+              <param name="jnlp.packEnabled" value="true">
+              Your browser does not support Java applets or Java is not installed/enabled.
+              <div style="color: red; padding: 10px;">
+                Please install Java and enable Java applets in your browser settings.
+              </div>
+            </applet>
           </div>
           <div class="download-section">
             <a class="download-btn" href="/dwn/FakeScape.jar" download>
-              Download Desktop Version (JAR)
+              Download JAR File
+            </a>
+            <a class="download-btn" href="/dwn/FakeScape.exe" download style="margin-left: 10px;">
+              Download EXE File
             </a>
           </div>
         </section>
         <div class="rsc-scroll">
           <p>
-            <strong>Web Version:</strong> Plays directly in your browser using CheerpJ.<br>
-            <strong>Desktop Version:</strong> Requires Java installed on your computer.
+            <strong>Browser Compatibility:</strong> This game uses Java applets which are deprecated in modern browsers.
+            You may need to use an older browser version or adjust security settings.
           </p>
         </div>
       </div>
@@ -82,20 +94,5 @@
       </footer>
       <div class="rsc-border-bottom rsc-border-bar"></div>
     </div>
-    <script>
-      (async function() {
-        try {
-          await cheerpjInit({ version: 11, clipboardMode: "permission" });
-          const container = document.getElementById('game-container');
-          document.getElementById('loading-text').textContent = 'Starting game...';
-          cheerpjCreateDisplay(-1, -1, container);
-          await cheerpjRunJar("/app/dwn/FakeScape.jar");
-        } catch (e) {
-          document.getElementById('loading-text').innerHTML = 
-            'Failed to load game.<br><small>Try the desktop download below.</small>';
-          console.error('CheerpJ error:', e);
-        }
-      })();
-    </script>
   </body>
 </html>

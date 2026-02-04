@@ -1,117 +1,114 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Play FakeScape - RuneScape by Jagex Ltd</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <style>
-      .game-container {
-        width: 765px;
-        height: 503px;
-        margin: 20px auto;
-        background: #000;
-        border: 3px solid #5a4a3a;
-        position: relative;
-      }
-      .game-warning {
-        padding: 15px;
-        background: #ffffcc;
-        border: 1px solid #ffcc00;
-        color: #333;
-        text-align: center;
-        margin: 10px;
-      }
-      .download-section {
-        text-align: center;
-        margin-top: 15px;
-      }
-      .download-btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background: linear-gradient(to bottom, #5a4a3a, #3a2a1a);
-        color: #ffcc00;
-        text-decoration: none;
-        border: 2px solid #6a5a4a;
-        font-weight: bold;
-      }
-      .download-btn:hover {
-        background: linear-gradient(to bottom, #6a5a4a, #4a3a2a);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="rsc-container">
-      <div class="rsc-border-top rsc-border-bar"></div>
-      <div class="rsc-wrap">
-        <header class="rsc-box rsc-header">
-          <h1>Play FakeScape</h1>
-          <a class="rsc-link" href="/index.html">Main menu</a>
-        </header>
-        <section>
-          <div class="game-warning">
-            <strong>Note:</strong> This game previously used a Java applet. Modern browsers no longer support Java applets directly. This page now uses a Java-to-JS embedder to run the game in-browser.
-          </div>
-          <div class="game-container" id="game-container">
-            <!-- Java applet replacement: CheerpJ-based embedder for in-browser play -->
-            <div id="cheerpj-app" style="width:765px; height:503px; background:#000; border:0;"></div>
-          </div>
-          <div class="download-section">
-            <a class="download-btn" href="/dwn/FakeScape.jar" download>
-              Download JAR File
-            </a>
-            <a class="download-btn" href="/dwn/FakeScape.exe" download style="margin-left: 10px;">
-              Download EXE File
-            </a>
-          </div>
-          <!-- CheerpJ embedder
-               Note: The following script tag loads the CheerpJ engine.
-               In production, host cheerpj.js locally to avoid external dependencies. -->
-          <script src="https://cdn.jsdelivr.net/gh/leaningtech/cheerpj@latest/cheerpj.js"></script>
-          <script>
-            (function() {
-              // Initialize CheerpJ and load the Java application jar
-              if (typeof CheerpJInit === 'function' && typeof CheerpJApplet === 'function') {
-                CheerpJInit();
-                // The exact API may vary; adjust if your CheerpJ build uses different entry points.
-                // This attempts to run the RuneLite class from the provided jar in the app container.
-                try {
-                  CheerpJApplet('net.runelite.client.RuneLite', 'game-container', '/dwn/FakeScape.jar');
-                } catch (e) {
-                  document.getElementById('cheerpj-app').innerHTML =
-                    '<div style="color:#f66; padding:10px;">Failed to launch Java applet in-browser. See console for details.</div>';
-                }
-              } else {
-                document.getElementById('cheerpj-app').innerHTML =
-                  '<div style="color:#f66; padding:10px;">CheerpJ is unavailable. Ensure JavaScript is enabled and the embedder script loaded correctly.</div>';
-              }
-            })();
-          </script>
-        </section>
-          <div class="download-section">
-            <a class="download-btn" href="/dwn/FakeScape.jar" download>
-              Download JAR File
-            </a>
-            <a class="download-btn" href="/dwn/FakeScape.exe" download style="margin-left: 10px;">
-              Download EXE File
-            </a>
-          </div>
-        </section>
-        <div class="rsc-scroll">
-          <p>
-            <strong>Browser Compatibility:</strong> This game uses Java applets which are deprecated in modern browsers.
-            You may need to use an older browser version or adjust security settings.
-          </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play FakeScape - RuneScape by Jagex Ltd</title>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- CheerpJ loader -->
+  <script src="/static/cheerpj/cheerpj.js"></script>
+
+  <style>
+    .game-container {
+      width: 765px;
+      height: 503px;
+      margin: 20px auto;
+      background: #000;
+      border: 3px solid #5a4a3a;
+      position: relative;
+    }
+    .game-warning {
+      padding: 15px;
+      background: #ffffcc;
+      border: 1px solid #ffcc00;
+      color: #333;
+      text-align: center;
+      margin: 10px;
+    }
+    .download-section {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .download-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(to bottom, #5a4a3a, #3a2a1a);
+      color: #ffcc00;
+      text-decoration: none;
+      border: 2px solid #6a5a4a;
+      font-weight: bold;
+    }
+    .download-btn:hover {
+      background: linear-gradient(to bottom, #6a5a4a, #4a3a2a);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rsc-container">
+    <header class="rsc-box rsc-header">
+      <h1>Play FakeScape</h1>
+      <a class="rsc-link" href="/index.html">Main menu</a>
+    </header>
+
+    <section>
+      <div class="game-warning">
+        <strong>Note:</strong> This game runs using CheerpJ (Java → WebAssembly).
+        No Java plugin is required.
+      </div>
+
+      <div class="game-container">
+        <div id="cheerpj-container"
+             style="width:765px; height:503px; background:black;">
         </div>
       </div>
-      <footer class="rsc-footer">
-        This webpage and its contents is copyright 2003 Jagex Ltd
-        <br>
-        To use our service you must agree to our 
-        <a class="rsc-link" href="/terms.html">Terms+Conditions</a> + 
-        <a class="rsc-link" href="/privacy.html">Privacy policy</a>
-      </footer>
-      <div class="rsc-border-bottom rsc-border-bar"></div>
-    </div>
-  </body>
+
+      <div class="download-section">
+        <a class="download-btn" href="/dwn/FakeScape.jar" download>
+          Download JAR File
+        </a>
+      </div>
+    </section>
+
+    <footer class="rsc-footer">
+      This webpage and its contents is copyright 2003 Jagex Ltd
+    </footer>
+  </div>
+
+  <script>
+    async function startGame() {
+      try {
+        await cheerpjInit({
+          javaProperties: {
+            "java.awt.headless": "false"
+          },
+          memory: 1024,        // Important for RS clients
+          enableThreads: true
+        });
+
+        await cheerpjRunJar(
+          "/dwn/FakeScape.jar",
+          {
+            container: document.getElementById("cheerpj-container"),
+            width: 765,
+            height: 503,
+            params: {
+              worldid: "1",
+              members: "1",
+              lowmem: "0"
+            }
+          }
+        );
+      } catch (e) {
+        document.getElementById("cheerpj-container").innerHTML =
+          "<div style='color:#f66;padding:10px'>Failed to start game. Check console.</div>";
+        console.error(e);
+      }
+    }
+
+    startGame();
+  </script>
+</body>
 </html>
